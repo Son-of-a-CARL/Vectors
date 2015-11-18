@@ -9,8 +9,8 @@ void setup() {
   x = width/2;
   y = height/2;
   diam = 80;
-  velX = random(-5, 5);
-  velY = random(-5, 5);
+  velX = random(-10, 10);
+  velY = random(-10, 10);
 }
 
 void draw() {
@@ -25,13 +25,14 @@ void draw() {
   y += velY;
 
   //wrap the ball's position
-  if (x + diam/2 >= width) {
-    x = -diam/2;     
-  } else if (x - diam/2 <= 0) {
-    x = width + diam/2;
+  if (x >= width) {
+    x = 0;     
+  } else if (x  <= 0) {
+    x = width;
   }
-  if (y + diam/2 >= height) {
-    y = -diam/2;
-  } else if (y - diam/2 <= 0) {
-    y = height + diam/2;
+  if (y/2 >= height) {
+    y =0;
+  } else if (y <= 0) {
+    y = height ;
   }
+}
