@@ -1,49 +1,59 @@
 //declare variables
-PVector loc, vel, acc; 
-float diam;
+int count = 5;
+PVector []loc = new PVector [count];
+PVector [] vel= new PVector [count];
+PVector [] acc = new PVector [count]; 
+float[] diam= new float [count];
 
 void setup() {
   //set size of canvas
   size(800, 600);
   background(0);
+  colorMode(HSB,360,100,100,100);
 
-  //initialize variables                                                                       
-  loc = new PVector (width/2, height/2);
-  diam = 80;
-  vel= PVector.random2D();
-  vel.mult(5);
-  acc = PVector.random2D();
-  acc.mult(.1);
+  //initialize variables  
+  int i=0;
+  while (i< count){
+  loc[i] = new PVector (width/2, height/2);
+  diam[i] = 80;
+  vel[i]= PVector.random2D();
+  vel[i].mult(1);
+  acc[i] = PVector.random2D();
+  acc[i].mult(.1);
+  i++;
+}
 }
 void draw() {
   //draw background to cover previous frame
+  int i=0;
+  for(i=0;i<count;i++) {
 
-  acc = PVector.random2D();
-  acc.mult(.1);
+  acc[i] = PVector.random2D();
+  acc[i].mult(.1);
   noStroke();
-  colorMode(HSB, 360);
-  for (int i = 0; i < 360; i++) {
-    for (int j = 0; j < 360; j++) {
-      stroke(i, j, 360);
-    }
+  fill(frameCount%360,100,100);
+  //for (int i = 0; i < 360; i++) {
+   // for (int j = 0; j < 360; j++) {
+   //   stroke(i, j, 360);
+   // }
 
     //draw ball
-    ellipse(loc.x, loc.y, diam, diam);
+    ellipse(loc[i].x, loc[i].y, diam[i], diam[i]);
 
     //add velocity to position
-    vel.add(acc);
-    vel.limit(.5);
-    loc.add(vel);
+    vel[i].add(acc[i]);
+    vel[i].limit(5);
+    loc[i].add(vel[i]);
     //wrap the ball's position
-    if (loc.x >= width) {
-      loc.x = 0;
-    } else if (loc.x  <= 0) {
-      loc.x = width;
+    if (loc[i].x >= width) {
+      loc[i].x = 0;
+    } else if (loc[i].x  <= 0) {
+      loc[i].x = width;
     }
-    if (loc.y/2 >= height) {
-      loc.y =0;
-    } else if (loc.y <= 0) {
-      loc.y = height ;
+    if (loc[i].y/2 >= height) {
+      loc[i].y =0;
+    } else if (loc[i].y <= 0) {
+      loc[i].y = height ;
     }
   }
-}
+  }
